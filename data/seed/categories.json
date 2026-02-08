@@ -1,0 +1,7 @@
+[
+  { "slug": "writing", "name": "写作", "description": "AI 写作与文案工具", "sort_order": 1 },
+  { "slug": "coding", "name": "编程", "description": "代码辅助与开发工具", "sort_order": 2 },
+  { "slug": "image", "name": "图像", "description": "AI 图像生成与编辑", "sort_order": 3 },
+  { "slug": "voice", "name": "语音", "description": "语音识别与合成", "sort_order": 4 },
+  { "slug": "productivity", "name": "效率", "description": "效率与自动化工具", "sort_order": 5 }
+]
