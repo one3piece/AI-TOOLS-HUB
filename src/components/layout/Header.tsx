@@ -38,6 +38,14 @@ export function Header() {
                 全部工具
               </Link>
             </li>
+            <li>
+              <Link
+                href="/news"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+              >
+                资讯
+              </Link>
+            </li>
             <li className="relative">
               <button
                 type="button"

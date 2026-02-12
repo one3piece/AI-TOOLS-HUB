@@ -1,6 +1,7 @@
 import type { Category, Post, Tag, ToolWithRelations } from "@/types";
 import { categories } from "@/data/categories";
 import { tools } from "@/data/tools";
+import { news } from "@/data/news";
 
 export function getCategories(): Category[] {
   return [...categories].sort((a, b) => a.sort_order - b.sort_order);
@@ -59,9 +60,13 @@ export function getTagBySlug(_slug: string): Tag | null {
 }
 
 export function getPosts(): Post[] {
-  return [];
+  return [...news].sort((a, b) => {
+    const dateA = a.published_at ? new Date(a.published_at).getTime() : 0;
+    const dateB = b.published_at ? new Date(b.published_at).getTime() : 0;
+    return dateB - dateA;
+  });
 }
 
-export function getPostBySlug(_slug: string): Post | null {
-  return null;
+export function getPostBySlug(slug: string): Post | null {
+  return news.find((p) => p.slug === slug) ?? null;
 }

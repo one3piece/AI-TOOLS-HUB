@@ -3,33 +3,28 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Category } from "@/types";
+import { 
+  Cpu, 
+  Palette, 
+  Zap, 
+  Code, 
+  Rocket, 
+  Workflow, 
+  CreditCard, 
+  LayoutGrid,
+  Home,
+  Newspaper
+} from "lucide-react";
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  model: (
-    <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-    </svg>
-  ),
-  nocode: (
-    <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
-    </svg>
-  ),
-  agent: (
-    <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-    </svg>
-  ),
-  editor: (
-    <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-    </svg>
-  ),
-  deploy: (
-    <svg className="h-5 w-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-    </svg>
-  ),
+  model: <Cpu className="h-4 w-4" />,
+  design: <Palette className="h-4 w-4" />,
+  nocode: <LayoutGrid className="h-4 w-4" />,
+  agent: <Zap className="h-4 w-4" />,
+  editor: <Code className="h-4 w-4" />,
+  deploy: <Rocket className="h-4 w-4" />,
+  automation: <Workflow className="h-4 w-4" />,
+  payment: <CreditCard className="h-4 w-4" />,
 };
 
 interface SidebarProps {
@@ -40,38 +35,86 @@ export function Sidebar({ categories }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-56 border-r border-neutral-200 bg-white">
-      <nav className="flex h-full flex-col gap-1 overflow-y-auto py-4 pl-3 pr-2">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-56 border-r border-cyber-blue/20 bg-black/80 backdrop-blur-xl">
+      <nav className="flex h-full flex-col gap-1 overflow-y-auto py-6 pl-4 pr-3">
+        <div className="mb-8 px-2">
+          <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-cyber-pink">
+            Navigation // 导航
+          </h2>
+          <div className="mt-2 h-px bg-gradient-to-r from-cyber-pink to-transparent"></div>
+        </div>
+
         <Link
           href="/"
-          className="mb-2 rounded-lg px-3 py-2 text-sm font-semibold text-neutral-900 hover:bg-neutral-100"
+          className={`mb-1 flex items-center gap-3 px-3 py-2.5 text-xs font-bold uppercase tracking-widest transition-all ${
+            pathname === "/" 
+              ? "bg-cyber-blue text-black shadow-[4px_4px_0px_rgba(0,240,255,0.3)]" 
+              : "text-cyber-blue/60 hover:bg-cyber-blue/10 hover:text-cyber-blue"
+          }`}
+          style={pathname === "/" ? { clipPath: "polygon(0 0, 100% 0, 100% 75%, 90% 100%, 0 100%)" } : {}}
         >
+          <Home className="h-4 w-4" />
           首页
         </Link>
         <Link
           href="/tools"
-          className="mb-2 rounded-lg px-3 py-2 text-sm font-medium text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+          className={`mb-1 flex items-center gap-3 px-3 py-2.5 text-xs font-bold uppercase tracking-widest transition-all ${
+            pathname === "/tools" 
+              ? "bg-cyber-blue text-black shadow-[4px_4px_0px_rgba(0,240,255,0.3)]" 
+              : "text-cyber-blue/60 hover:bg-cyber-blue/10 hover:text-cyber-blue"
+          }`}
+          style={pathname === "/tools" ? { clipPath: "polygon(0 0, 100% 0, 100% 75%, 90% 100%, 0 100%)" } : {}}
         >
+          <LayoutGrid className="h-4 w-4" />
           全部工具
         </Link>
+        <Link
+          href="/news"
+          className={`mb-6 flex items-center gap-3 px-3 py-2.5 text-xs font-bold uppercase tracking-widest transition-all ${
+            pathname === "/news" 
+              ? "bg-cyber-blue text-black shadow-[4px_4px_0px_rgba(0,240,255,0.3)]" 
+              : "text-cyber-blue/60 hover:bg-cyber-blue/10 hover:text-cyber-blue"
+          }`}
+          style={pathname === "/news" ? { clipPath: "polygon(0 0, 100% 0, 100% 75%, 90% 100%, 0 100%)" } : {}}
+        >
+          <Newspaper className="h-4 w-4" />
+          资讯动态
+        </Link>
+
+        <div className="mb-4 px-2">
+          <h2 className="text-[10px] font-black uppercase tracking-[0.3em] text-cyber-yellow">
+            Categories // 分类
+          </h2>
+          <div className="mt-2 h-px bg-gradient-to-r from-cyber-yellow to-transparent"></div>
+        </div>
+
         {categories.map((c) => {
           const isActive = pathname === `/category/${c.slug}`;
-          const icon = categoryIcons[c.slug] ?? null;
+          const icon = categoryIcons[c.slug] ?? <LayoutGrid className="h-4 w-4" />;
           return (
             <Link
               key={c.id}
               href={`/category/${c.slug}`}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition ${
+              className={`flex items-center gap-3 px-3 py-2 text-xs font-bold uppercase tracking-wider transition-all ${
                 isActive
-                  ? "bg-violet-50 font-medium text-violet-700"
-                  : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+                  ? "border-l-2 border-cyber-yellow bg-cyber-yellow/10 text-cyber-yellow"
+                  : "text-neutral-500 hover:bg-white/5 hover:text-white"
               }`}
             >
-              {icon}
+              <span className={isActive ? "text-cyber-yellow" : "text-neutral-600"}>{icon}</span>
               <span>{c.name}</span>
             </Link>
           );
         })}
+
+        <div className="mt-auto pt-10 pb-4">
+          <div className="cyber-border p-3 bg-cyber-blue/5">
+            <p className="text-[9px] font-bold text-cyber-blue/60 leading-tight">
+              SYSTEM STATUS: <span className="text-cyber-blue">ONLINE</span><br/>
+              VERSION: <span className="text-cyber-blue">2.0.77</span>
+            </p>
+          </div>
+        </div>
       </nav>
     </aside>
   );

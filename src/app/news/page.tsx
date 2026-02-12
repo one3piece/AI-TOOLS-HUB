@@ -1,5 +1,6 @@
 import { Container } from "@/components/ui/Container";
 import { PostList } from "@/components/news/PostList";
+import { getPosts } from "@/lib/data";
 
 export const metadata = {
   title: "资讯",
@@ -7,11 +8,13 @@ export const metadata = {
 };
 
 export default function NewsPage() {
+  const posts = getPosts();
+  
   return (
     <div className="min-h-screen bg-neutral-50 py-10">
       <Container>
         <h1 className="mb-8 text-2xl font-bold text-neutral-900">资讯</h1>
-        <PostList posts={[]} />
+        <PostList posts={posts} />
       </Container>
     </div>
   );

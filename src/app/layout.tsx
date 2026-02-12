@@ -34,8 +34,8 @@ export default function RootLayout({
 }>) {
   const categories = getCategories();
   return (
-    <html lang="zh-CN">
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased bg-neutral-50`}>
+    <html lang="zh-CN" className="dark">
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen antialiased bg-black text-white`}>
         <div className="flex">
           <Sidebar categories={categories} />
           <div className="ml-56 flex min-h-screen flex-1 flex-col">

@@ -25,29 +25,41 @@ export function SearchBar() {
   }
 
   return (
-    <div className="px-6 py-6">
-      <form onSubmit={handleSubmit} className="mx-auto max-w-2xl">
-        <div className="flex gap-2 rounded-xl border border-neutral-200 bg-white shadow-sm focus-within:ring-2 focus-within:ring-violet-500">
-          <input
-            type="search"
-            placeholder="站内AI工具搜索"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 rounded-l-xl border-0 px-4 py-3 text-neutral-900 placeholder:text-neutral-400 focus:ring-0"
-            aria-label="搜索"
-          />
-          <button
-            type="submit"
-            className="rounded-r-xl bg-violet-600 px-4 text-white transition hover:bg-violet-700"
-            aria-label="搜索"
-          >
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </button>
+    <div className="py-8">
+      <form onSubmit={handleSubmit} className="mx-auto max-w-2xl px-4">
+        <div className="relative group">
+          {/* 3D Effect Layers */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-cyber-pink to-cyber-blue rounded-none blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+          
+          <div className="relative flex items-center">
+            <input
+              type="search"
+              placeholder="搜索 AI 工具、资讯或教程..."
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              className="w-full bg-black border-2 border-cyber-blue py-4 pl-6 pr-24 text-cyber-blue placeholder:text-cyber-blue/40 focus:outline-none focus:ring-0 focus:border-cyber-yellow transition-colors shadow-[6px_6px_0px_rgba(0,240,255,0.2)] focus:shadow-[6px_6px_0px_rgba(252,238,10,0.2)]"
+              style={{
+                clipPath: "polygon(0 0, 97% 0, 100% 15%, 100% 100%, 3% 100%, 0 85%)"
+              }}
+            />
+            <button
+              type="submit"
+              className="absolute right-2 bg-cyber-yellow px-6 py-2 text-sm font-black uppercase text-black transition-colors hover:bg-cyber-blue"
+              style={{
+                clipPath: "polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%)"
+              }}
+            >
+              SEARCH
+            </button>
+          </div>
+          
+          {/* Decorative corner elements */}
+          <div className="absolute -top-2 -left-2 h-4 w-4 border-l-2 border-t-2 border-cyber-yellow"></div>
+          <div className="absolute -bottom-2 -right-2 h-4 w-4 border-b-2 border-r-2 border-cyber-pink"></div>
         </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2 text-sm">
-          <span className="text-neutral-500">搜索范围：</span>
+
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-xs font-bold tracking-widest uppercase">
+          <span className="text-cyber-blue/60">SCOPE:</span>
           {scopes.map((s) =>
             "href" in s ? (
               <a
@@ -55,7 +67,7 @@ export function SearchBar() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full px-3 py-1 text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
+                className="border border-cyber-blue/30 px-3 py-1 text-cyber-blue/70 transition hover:bg-cyber-blue hover:text-black"
               >
                 {s.label}
               </a>
@@ -64,8 +76,10 @@ export function SearchBar() {
                 key={s.label}
                 type="button"
                 onClick={() => setScope(s.value)}
-                className={`rounded-full px-3 py-1 transition ${
-                  scope === s.value ? "bg-violet-100 font-medium text-violet-700" : "text-neutral-600 hover:bg-neutral-100"
+                className={`border px-3 py-1 transition ${
+                  scope === s.value 
+                    ? "bg-cyber-blue border-cyber-blue text-black" 
+                    : "border-cyber-blue/30 text-cyber-blue/70 hover:bg-cyber-blue/10"
                 }`}
               >
                 {s.label}

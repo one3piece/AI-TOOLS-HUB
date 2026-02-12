@@ -13,34 +13,50 @@ const tabs = [
 export function MainHeader() {
   const pathname = usePathname();
   return (
-    <header className="border-b border-neutral-200 bg-white">
-      <div className="flex items-center gap-6 px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-100 text-violet-600">
-            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-            </svg>
-          </span>
-          <span className="text-xl font-bold text-violet-700">{SITE_NAME}</span>
-        </Link>
-        <ul className="flex gap-1">
-          {tabs.map((tab) => {
-            const active = pathname === tab.href || (tab.href === "/" && pathname === "/");
-            return (
-              <li key={tab.label}>
-                <Link
-                  href={tab.href}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
-                    active ? "bg-violet-100 text-violet-700" : "text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900"
-                  }`}
-                >
-                  {tab.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+    <header className="sticky top-0 z-30 border-b border-cyber-blue/20 bg-black/80 backdrop-blur-md">
+      <div className="flex items-center justify-between px-6 py-4">
+        <div className="flex items-center gap-6">
+          <Link href="/" className="group flex items-center gap-2">
+            <div className="h-9 w-9 bg-cyber-yellow flex items-center justify-center font-black text-black" style={{ clipPath: "polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%)" }}>
+              AI
+            </div>
+            <span className="text-xl font-black tracking-tighter text-white group-hover:text-cyber-blue transition-colors">
+              {SITE_NAME.toUpperCase()}
+            </span>
+          </Link>
+          <ul className="hidden md:flex gap-2">
+            {tabs.map((tab) => {
+              const active = pathname === tab.href;
+              return (
+                <li key={tab.label}>
+                  <Link
+                    href={tab.href}
+                    className={`px-4 py-2 text-xs font-black uppercase tracking-widest transition-all ${
+                      active 
+                        ? "text-cyber-yellow border-b-2 border-cyber-yellow" 
+                        : "text-cyber-blue/60 hover:text-cyber-blue"
+                    }`}
+                  >
+                    {tab.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+        
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:block text-[10px] font-bold text-cyber-blue/40 tracking-widest uppercase">
+            Status: <span className="text-cyber-blue">Encrypted</span>
+          </div>
+          <button className="cyber-button px-6 py-1.5 text-[10px]">
+            Access
+          </button>
+        </div>
       </div>
+      
+      {/* Decorative scanning line effect */}
+      <div className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-cyber-blue to-transparent opacity-30"></div>
     </header>
   );
 }
