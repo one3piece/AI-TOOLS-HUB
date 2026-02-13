@@ -1,7 +1,11 @@
-import type { Category, Post, Tag, ToolWithRelations } from "@/types";
+import type { Category, Post, Tag, ToolWithRelations, NewsItem } from "@/types";
 import { categories } from "@/data/categories";
 import { tools } from "@/data/tools";
-import { news } from "@/data/news";
+import { news as staticNews } from "@/data/news";
+import * as fs from "fs";
+import * as path from "path";
+
+// ─── Categories ──────────────────────────────────────────────────────────────
 
 export function getCategories(): Category[] {
   return [...categories].sort((a, b) => a.sort_order - b.sort_order);
@@ -14,6 +18,8 @@ export function getCategoryBySlug(slug: string): Category | null {
 export function getCategorySlugs(): string[] {
   return categories.map((c) => c.slug);
 }
+
+// ─── Tools ───────────────────────────────────────────────────────────────────
 
 export function getTools(options?: {
   categorySlug?: string;
@@ -51,6 +57,8 @@ export function getToolSlugs(): string[] {
   return tools.map((t) => t.slug);
 }
 
+// ─── Tags ────────────────────────────────────────────────────────────────────
+
 export function getTags(): Tag[] {
   return [];
 }
@@ -59,8 +67,10 @@ export function getTagBySlug(_slug: string): Tag | null {
   return null;
 }
 
+// ─── Posts (legacy static news) ──────────────────────────────────────────────
+
 export function getPosts(): Post[] {
-  return [...news].sort((a, b) => {
+  return [...staticNews].sort((a, b) => {
     const dateA = a.published_at ? new Date(a.published_at).getTime() : 0;
     const dateB = b.published_at ? new Date(b.published_at).getTime() : 0;
     return dateB - dateA;
@@ -68,5 +78,37 @@ export function getPosts(): Post[] {
 }
 
 export function getPostBySlug(slug: string): Post | null {
-  return news.find((p) => p.slug === slug) ?? null;
+  return staticNews.find((p) => p.slug === slug) ?? null;
+}
+
+// ─── News (RSS/API aggregated from news.json) ────────────────────────────────
+
+function loadNewsJson(): NewsItem[] {
+  try {
+    const jsonPath = path.join(process.cwd(), "src", "data", "news.json");
+    if (fs.existsSync(jsonPath)) {
+      const raw = fs.readFileSync(jsonPath, "utf-8");
+      return JSON.parse(raw) as NewsItem[];
+    }
+  } catch (e) {
+    console.warn("Failed to load news.json:", e);
+  }
+  return [];
+}
+
+let _newsCache: NewsItem[] | null = null;
+
+export function getNewsItems(): NewsItem[] {
+  if (_newsCache === null) {
+    _newsCache = loadNewsJson();
+  }
+  return _newsCache;
+}
+
+export function getNewsItemBySlug(slug: string): NewsItem | null {
+  return getNewsItems().find((n) => n.slug === slug) ?? null;
+}
+
+export function getNewsSlugs(): string[] {
+  return getNewsItems().map((n) => n.slug);
 }

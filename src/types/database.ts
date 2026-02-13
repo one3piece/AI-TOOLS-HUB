@@ -55,6 +55,17 @@ export interface Post {
   updated_at: string;
 }
 
+/** News item from RSS/API aggregation (news.json) */
+export interface NewsItem {
+  title: string;
+  slug: string;
+  date: string;
+  source: string;
+  summary: string;
+  url: string;
+  tags: string[];
+}
+
 export interface Subscriber {
   id: string;
   email: string;

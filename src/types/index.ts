@@ -4,6 +4,7 @@ export type {
   Tool,
   ToolTag,
   Post,
+  NewsItem,
   Subscriber,
   ToolWithRelations,
 } from "./database";

@@ -1,14 +1,16 @@
 import Link from "next/link";
-import { getTools } from "@/lib/data";
+import { getTools, getNewsItems } from "@/lib/data";
 import { SearchBar } from "@/components/home/SearchBar";
 import { FeaturedCards } from "@/components/home/FeaturedCards";
 import { ToolList } from "@/components/tools/ToolList";
+import { NewsCard } from "@/components/news/NewsCard";
 import { PostList } from "@/components/news/PostList";
 import { getPosts } from "@/lib/data";
 
 export default function HomePage() {
   const featuredTools = getTools({ featured: true, limit: 12 });
-  const latestNews = getPosts().slice(0, 4);
+  const latestNews = getNewsItems().slice(0, 6);
+  const editorialPosts = getPosts().slice(0, 4);
 
   return (
     <div className="flex flex-col gap-16 pb-20">
@@ -69,15 +71,42 @@ export default function HomePage() {
         <ToolList tools={featuredTools} />
       </section>
 
-      {/* 最新资讯 */}
+      {/* Live Feed - RSS 聚合新闻 */}
+      {latestNews.length > 0 && (
+        <section className="container mx-auto max-w-7xl px-6">
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <h2 className="text-3xl font-black tracking-tighter text-white uppercase">
+                Live <span className="text-cyber-blue">Feed</span>
+              </h2>
+              <p className="mt-2 text-xs font-bold uppercase tracking-widest text-neutral-500">
+                实时聚合 // RSS/API 构建时自动抓取
+              </p>
+            </div>
+            <Link
+              href="/news"
+              className="text-xs font-black uppercase tracking-widest text-cyber-blue hover:text-cyber-yellow transition-colors"
+            >
+              View All Intel &gt;
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {latestNews.map((item) => (
+              <NewsCard key={item.slug} item={item} />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 编辑推荐资讯 */}
       <section className="container mx-auto max-w-7xl px-6 pb-16">
         <div className="mb-10 flex items-end justify-between">
           <div>
             <h2 className="text-3xl font-black tracking-tighter text-white uppercase">
-              Latest <span className="text-cyber-pink">Intel</span>
+              Editorial <span className="text-cyber-pink">Intel</span>
             </h2>
             <p className="mt-2 text-xs font-bold uppercase tracking-widest text-neutral-500">
-              最新资讯 // 行业情报实时接入
+              编辑推荐 // 精选行业深度资讯
             </p>
           </div>
           <Link
@@ -87,7 +116,7 @@ export default function HomePage() {
             Access Newsfeed &gt;
           </Link>
         </div>
-        <PostList posts={latestNews} />
+        <PostList posts={editorialPosts} />
       </section>
       
       {/* Footer Decoration */}
