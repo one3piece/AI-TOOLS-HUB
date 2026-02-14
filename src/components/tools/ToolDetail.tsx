@@ -52,7 +52,7 @@ export function ToolDetail({ tool }: ToolDetailProps) {
 
             <div className="flex flex-wrap gap-6 pt-2">
               <a
-                href={tool.website_url}
+                href={tool.website_url || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center gap-2 bg-cyber-blue px-6 py-3 text-sm font-black uppercase tracking-[0.2em] text-black transition-all hover:bg-white hover:shadow-[0_0_30px_rgba(0,240,255,0.5)]"
