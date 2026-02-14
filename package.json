@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build-news": "tsx scripts/fetch-news.ts",
     "prebuild": "tsx scripts/fetch-news.ts",
-    "build": "next build",
+    "build-news": "tsx scripts/fetch-news.ts",
+    "build": "npm run build-news && next build"
     "start": "next start",
     "lint": "eslint"
   },
